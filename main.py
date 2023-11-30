@@ -22,28 +22,128 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.idle, activity=activity)
     print("ready")
 
+@bot.command(name = "helping")
+async def help(ctx):
+    await ctx.send("Voici la liste des commandes :")
+    await ctx.send("boolmi.help : affiche la liste des commandes")
+    await ctx.send("boolmi.insulte : insulte l'utilisateur")
+    await ctx.send("boolmi.zizi : mesure la taille du zizi de l'utilisateur")
+    await ctx.send("boolmi.demotivator : génère un demotivator à partir des messages du serveur")
+    await ctx.send("boolmi.casino : crée un compte au casino")
+    await ctx.send("boolmi.roulette : joue à la roulette")
+    await ctx.send("boolmi.pileface : joue à pile ou face")
+    await ctx.send("boolmi.argent : affiche l'argent de l'utilisateur")
+
+
+@bot.command(name = "reload_demotivator")
+async def reload_demotivator(ctx):
+    await ctx.send("Reloading...")
+    f = open("fichier.txt", "r")
+    f2 = open("fichier_image.txt", "r")
+
+    data = []
+    for ligne in f:
+        data.append(ligne[:-1])
+    f.close()
+
+    data2 = []
+    for ligne in f2:
+        data2.append(ligne[:-1])
+    f2.close()
+
+    async for item in ctx.history(limit=1500000):
+        if not re.search("^[a-zA-Z]\..", item.content):
+            if not re.search("^boolmi\..", item.content) and not re.search("^Boolmi\..",
+                                                                           item.content) and not re.search("^<:",
+                                                                                                           item.content) and not re.search(
+                    "^!", item.content) and not re.search("^MD(R){1,}$", item.content) and not re.search("^Md(r){1,}$",
+                                                                                                         item.content) and not re.search(
+                    "^md(r){1,}$", item.content) and not re.search("^pls", item.content) and not re.search("^mirems$",
+                                                                                                           item.content) and not re.search(
+                    "^Mirems$", item.content) and not re.search("^OOF", item.content) and not re.search("^\^\^",
+                                                                                                        item.content) and not re.search(
+                    "^[a-zA-Z]$.", item.content):
+                if item.author.name != 'Mibot^^' and item.author.name != 'GenAi' and item.author.name != 'Deleted User' and item.author.name != 'Rythm' and item.author.name != 'StormBeatz' and item.author.name != 'Dank Memer' and item.author.name != 'Lindsey':
+                    if item.content not in data:
+                        if not re.search("^\s.", item.content):
+                            if item.content:
+                                if len((item.content).split(" ")[0]) < 8:
+                                    print("ajouté", item.content)
+                                    data.append(item.content)
+                        if item.attachments != []:
+                            if item.attachments[0] not in data2:
+                                if re.search(".png", str(item.attachments[0])) or re.search(".jpg", str(
+                                        item.attachments[0])) or re.search(".jpeg", str(item.attachments[0])):
+                                    print("ajouté", item.attachments[0])
+                                    data2.append(item.attachments[0])
+
+    f = open("fichier.txt", "w")
+    f2 = open("fichier_image.txt", "w")
+
+    for ligne in data:
+        try:
+            f.write(ligne + "\n")
+        except:
+            print("relou le pouce")
+    for ligne in data2:
+        f2.write(str(ligne) + "\n")
+    f.close()
+    f2.close()
+
+    await ctx.send("Done !")
+
+
+
 
 @bot.command(name="demotivator")
 async def demotivator(ctx):
-    os.remove('fichier.txt')
 
-    with open('fichier.txt', 'w') as f:
-        with open('fichier_image.txt', 'w') as f2:
-            async for item in ctx.history(limit = 150000):
-                if not re.search("^g\..", item.content):
-                    if not re.search("^boolmi\..", item.content):
-                        if item.author.name != 'Mibot^^' and item.author.name != 'GenAi' and item.author.name != 'Deleted User':
-                            try:
-                                if not re.search("^\s.", item.content):
-                                    if item.content:
-                                        f.write(f'{item.content}\n')
-                            except:
-                                print("erreur 1")
-                            if item.attachments != []:
-                                try:
-                                    f2.write(f'{item.attachments[0]}\n')
-                                except:
-                                    print("erreur 2")
+    f = open("fichier.txt", "r")
+    data = []
+    for ligne in f:
+        data.append(ligne[:-1])
+    f.close()
+    f2 = open("fichier_image.txt", "r")
+    data2 = []
+    for ligne in f2:
+        data2.append(ligne[:-1])
+    f2.close()
+
+    f = open("fichier.txt", "w")
+    f2 = open("fichier_image.txt", "w")
+
+    async for item in ctx.history(limit = 1500000):
+        if not re.search("^[a-zA-Z]\..", item.content):
+            if not re.search("^boolmi\..", item.content) and not re.search("^Boolmi\..", item.content) and not re.search("^<:", item.content) and not re.search("^!", item.content) and not re.search("^MD(R){1,}$", item.content) and not re.search("^Md(r){1,}$", item.content) and not re.search("^md(r){1,}$", item.content) and not re.search("^pls", item.content) and not re.search("^mirems$", item.content) and not re.search("^Mirems$", item.content) and not re.search("^OOF", item.content) and not re.search("^\^\^", item.content) and not re.search("^[a-zA-Z]$.", item.content):
+                if item.author.name != 'Mibot^^' and item.author.name != 'GenAi' and item.author.name != 'Deleted User' and item.author.name != 'Rythm' and item.author.name != 'StormBeatz' and item.author.name != 'Dank Memer' and item.author.name != 'Lindsey':
+                    if item.content not in data:
+                        if not re.search("^\s.", item.content):
+                            if item.content:
+                                if len((item.content).split(" ")[0]) < 8:
+                                    data.append(item.content)
+                        if item.attachments != []:
+                            if item.attachments[0] not in data2:
+                                if re.search(".png", str(item.attachments[0])) or re.search(".jpg", str(item.attachments[0])) or re.search(".jpeg", str(item.attachments[0])):
+                                    try:
+                                        #f2.write(f'{item.attachments[0]}\n')
+                                        data2.append(item.attachments[0])
+                                    except:
+                                        print("erreur 4")
+                    else:
+                        print("déjà dans le fichier")
+                        print(item.content)
+                        break
+    for ligne in data:
+        try:
+            f.write(ligne+"\n")
+        except:
+            print("relou le pouce")
+    for ligne in data2:
+        f2.write(str(ligne)+"\n")
+    f.close()
+    f2.close()
+
+
 
     await ctx.send("Je prends mon temps bouge pas")
 
@@ -364,6 +464,17 @@ async def pileface(ctx):
                     file.write(ligne)
             file.close()
             return
+
+@bot.command(name="score")
+async def score(ctx):
+    file = open("casino.txt", "r")
+    data = []
+    for ligne in file:
+        data.append(ligne)
+    file.close()
+    data.sort(key=lambda x: int(x.split(" : ")[1][:-1]), reverse=True)
+    for ligne in data:
+        await ctx.send(ligne[:-1]+ " bonins")
 
 bot.run("MTA5MzIwNDM4MzI5MTkzMjc4NA.GFZTL1.Kv_Qn0HuJDCgrzjnbuxnS1y9kCQYCqozaJ_1Hk")
 
