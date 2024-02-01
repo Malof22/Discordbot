@@ -476,5 +476,5 @@ async def score(ctx):
     for ligne in data:
         await ctx.send(ligne[:-1]+ " bonins")
 
-bot.run("MTA5MzIwNDM4MzI5MTkzMjc4NA.GFZTL1.Kv_Qn0HuJDCgrzjnbuxnS1y9kCQYCqozaJ_1Hk")
+bot.run("There goes the token but you are not going to see it")
 
